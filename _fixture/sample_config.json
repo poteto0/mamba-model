@@ -1,0 +1,7 @@
+{
+  "mamba_num": 1,
+  "mamba_shot_percentage": 0.65,
+  "player_shot_percentage": 0.5,
+  "mamba_mental": 1,
+  "mental_coefficient": 0.1
+}
