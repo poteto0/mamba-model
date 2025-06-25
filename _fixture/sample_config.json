@@ -3,5 +3,10 @@
   "mamba_shot_percentage": 0.65,
   "player_shot_percentage": 0.5,
   "mamba_mental": 1,
-  "mental_coefficient": 0.1
+  "mental_coefficient": 0.1,
+  "heal_rate": 0.05,
+  "shot_accuracy_rate": 0.5,
+  "logistic_k": 5,
+  "logistic_x0": 1,
+  "fallback_shot_percentage": 0.3
 }

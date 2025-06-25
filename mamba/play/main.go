@@ -11,22 +11,25 @@ import (
 )
 
 func main() {
-	file, err := os.Open("../_fixture/sample_config.json")
+	config, err := config.Load("../_fixture/sample_config.json")
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer file.Close()
 
-	buffer := make([]byte, 1024)
-	file.Read(buffer)
-
-	config := config.ModelConfig{}
-	if err := json.Unmarshal(buffer, &config); err != nil {
-		log.Fatal(err)
-	}
-
-	players := generator.Generate(config)
-	game := game.NewGame(players)
+		players := generator.Generate(generator.Config{
+		MambaNum:             config.MambaNum,
+		MambaShotPercentage:  config.MambaShotPercentage,
+		PlayerShotPercentage: config.PlayerShotPercentage,
+		MambaMental:          config.MambaMental,
+		MentalCoefficient:    config.MentalCoefficient,
+		HealRate:             config.HealRate,
+		ShotAccuracyRate:     config.ShotAccuracyRate,
+		LogisticK:            config.LogisticK,
+		LogisticX0:           config.LogisticX0,
+	})
+	game := game.NewGame(players, game.GameConfig{
+		FallbackShotPercentage: config.FallbackShotPercentage,
+	})
 
 	game.Play()
 

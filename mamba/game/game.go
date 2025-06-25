@@ -22,14 +22,16 @@ type Game struct {
 	score      int
 	poss       int
 	statsSheet []StatsRecord
+	config     GameConfig
 }
 
-func NewGame(players []player.IPlayer) IGame {
+func NewGame(players []player.IPlayer, config GameConfig) IGame {
 	return &Game{
 		team:       team.NewTeam(players).(*team.Team),
 		score:      0,
 		poss:       0,
 		statsSheet: []StatsRecord{},
+		config:     config,
 	}
 }
 
@@ -58,7 +60,7 @@ func (g *Game) shoot(shooterIndex int) bool {
 
 	// 打つ人が定まらなかった時
 	if shooterIndex == 5 {
-		return rand <= 0.3 // TODO: config
+		return rand <= g.config.FallbackShotPercentage
 	}
 
 	return rand <= g.team.Players[shooterIndex].ShotAccuracy()

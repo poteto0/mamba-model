@@ -36,7 +36,7 @@ func (p *Player) calcAccuracy() float64 {
 }
 
 func (p *Player) Heal() {
-	p.state.Mental += p.config.MentalCoefficient * 0.05 // TODO: ModelConfig
+	p.state.Mental += p.config.HealRate
 }
 
 func (p *Player) Scale() {
@@ -61,12 +61,10 @@ func (p *Player) updateState(isMade bool) {
 }
 
 func (p *Player) updateShotAccuracy() {
-	// TODO: もろもろconfig
 	currentAccuracy := p.calcAccuracy()
 
-	logi := utils.Logistic(float64(p.stats.ShotsAttempted), 5, 1, 1)
-	p.state.ShotAccuracy = p.config.ShotBase + 0.5*logi*(currentAccuracy-p.config.ShotBase)
-
+	logi := utils.Logistic(float64(p.stats.ShotsAttempted), p.config.LogisticK, p.config.LogisticX0, 1)
+	p.state.ShotAccuracy = p.config.ShotBase + p.config.ShotAccuracyRate*logi*(currentAccuracy-p.config.ShotBase)
 }
 
 func (p *Player) updateStats(isMade bool) {
