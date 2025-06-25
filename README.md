@@ -82,3 +82,16 @@ o_t \min(sp_i)
 ```math
 \frac{d mt}{dt} = - \eta o_t  (1-mamba)
 ```
+
+# 実行
+
+```bash
+cd mamba
+go run play/main.go
+```
+
+# TODO
+
+- [ ] finish model
+- [ ] finish chart tool
+- [ ] web app
